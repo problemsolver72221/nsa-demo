@@ -1,6 +1,7 @@
 "use client"
 
 import { useOptimisticAction } from "next-safe-action/hook"
+import { useRouter } from "next/navigation"
 import { addLikes } from "./addlikes-action"
 
 type Props = {
@@ -8,6 +9,7 @@ type Props = {
 }
 
 const AddLikesForm = ({ initialLikesCount }: Props) => {
+  const router = useRouter()
   // Here we pass safe action (`addLikes`) and current server state to `useAction` hook.
   const {
     execute,
@@ -24,6 +26,7 @@ const AddLikesForm = ({ initialLikesCount }: Props) => {
     {
       onSuccess(data, reset) {
         console.log("HELLO FROM ONSUCCESS", data)
+        router.refresh()
 
         // You can reset response object by calling `reset`.
         // reset();

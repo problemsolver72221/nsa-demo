@@ -6,8 +6,11 @@ export const metadata = {
   title: "Action using optimistic hook",
 }
 
-export default function OptimisticHook() {
+export default async function OptimisticHook() {
   const likesCount = getLikes()
+  const randomPost = Math.floor(Math.random() * 101);
+  const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${randomPost}`)
+  const data = await res.json()
   return (
     <>
       <Link href="/">Go to home</Link>
@@ -15,6 +18,7 @@ export default function OptimisticHook() {
       <pre style={{ marginTop: "1rem" }}>
         Server state: {JSON.stringify(likesCount)}
       </pre>
+      <p>{JSON.stringify(data)}</p>
       {/* Pass the server state and typesafe mutation to Client Component */}
       <AddLikeForm initialLikesCount={likesCount} />
     </>
